@@ -31,65 +31,64 @@ bool insertNode(Node* node, int data)
 {
     if ( !node ) return false;
     
-    if ( node->data[0] > data )
+    for ( int i=0; i<MAX_DATA; i++ )
+    {
+        bool ret = false;
+        if ( data < node->data[i] )
         {
-            insertNode(node->child[0], data);
+            ret = insertNode(node->child[i], data);
+            //return true;
         }
         else
         {
-            insertNode(node->child[1], data);
+            ret = insertNode(node->child[i+1], data);
         }
-    
+        
+        if ( ret ) return true;
+    }
     // if there is room for the new data, then insert the new one in the node.
-    if ( node->dataIndex < MAX_DATA+1 )
+    if ( node->dataIndex < MAX_DATA )
     {
         node->data[node->dataIndex++] = data;
     }
     else
     {
         // if the node is full, evenly split into two nodes.
+        
         // 1. find the median
         node->data[0] = 2;
-        node->dataIndex = 2;
+        node->data[1] = 0;
+        node->dataIndex = 1;
         // 2. make left sub tree
         Node* left = makeNode();
         left->data[0] = 1;
-        left->dataIndex = 2;
+        left->dataIndex = 1;
         node->child[0] = left;
         
         // 3. make right sub tree
         Node* right = makeNode();
         right->data[0] = 3;
-        right->dataIndex = 2;
+        right->dataIndex = 1;
         node->child[1] = right;
     }
     
     return true;
 }
 
-void makeLeftSubTree(Node* root, Node* child, int index)
+void printAllNode(Node* node)
 {
-    root->child[index] = child;
-}
-
-void makeRightSubTree(Node* root, Node* child, int index)
-{
-    root->child[index] = child;
-}
-
-void printAllNode(Node* root)
-{
-    if ( !root ) return;
+    if ( !node ) return;
     
     for ( int i=0; i<MAX_DATA; i++ )
     {
-        printf("%d ", root->data[i]);
+        if ( node->data[i] == 0 ) continue;
+        printf("%d ", node->data[i]);
     }
     printf("\n");
 
     for ( int i=0; i<MAX_DATA+1; i++ )
     {
-        printAllNode(root->child[i]);
+        printAllNode(node->child[i]);
     }
 }
 

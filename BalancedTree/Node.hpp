@@ -25,10 +25,6 @@ Node* makeNode();
 
 bool insertNode(Node* node, int data);
 
-void makeLeftSubTree(Node* root, Node* child, int index);
-
-void makeRightSubTree(Node* root, Node* child, int index);
-
-void printAllNode(Node* root);
+void printAllNode(Node* node);
 
 #endif /* Node_hpp */

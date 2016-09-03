@@ -17,6 +17,7 @@ int main(int argc, const char * argv[])
     insertNode(nd1, 2);
     insertNode(nd1, 3);
     insertNode(nd1, 4);
+    //insertNode(nd1, 5);
     
    
     printAllNode(nd1);
